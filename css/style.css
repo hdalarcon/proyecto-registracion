@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #24303c;
+    font-family: 'calibri';
+}
+
+.main h1{
+    color: white;
+    margin: 50px auto auto 90px;
+
+}
+
+.formulario{
+    background: #24303c;
+    margin: 25px auto auto 75px;
+}
+
+.form-group input{
+    font-size: 18px;
+    color: white;
+    background: #24303c;
+    width: 400px;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 16px;
+    border: 1px solid #1f53c5 ;
+}
+.form-group label{
+    font-size: 18px;
+    color: white;
+    margin: 16px;
+}
+
+.form-buttons input{
+    width: 400px;
+    font-size: 16px;
+    background: #1f53c5;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 16px;
+}

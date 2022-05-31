@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Registro de huespedes</title>
+</head>
+<body>
+    
+    <main class="main">
+        <h1>Registro de huespedes</h1>
+        <form class="formulario" action="#" method="post">
+            <fieldset>
+                <legend>Seleción de cabaña</legend>
+                <select class="form-group" name="cabana" id="cabana">
+                    <option value="" disabled selected>Seleccione una Cabaña</option>
+                    <option value="1">Cabaña 1</option>
+                    <option value="2">Cabaña 2</option>
+                    <option value="3">Cabaña 3</option>
+                    <option value="3">Cabaña 4</option>
+                  </select>
+            </fieldset>
+            <div class="form-group">
+                <input type="text" id="nombre"  placeholder="Nombre" name="nombre">
+            </div>
+            <div class="form-group">
+                <input type="text" id="apellido" placeholder="Apellido" name="apellido">
+            </div>
+            <div class="form-group">
+                <input type="number" id="documento" placeholder="Documento" name="documento">
+            </div>
+            <div class="form-group">
+                <input type="tel" id="telefono" placeholder="Telefono" name="telefono">
+            </div>
+            <div class="form-group">
+                <input type="email" id="mail" placeholder="Email" name="mail">
+            </div>
+            <div class="form-group">
+                <input type="text" id="calle" placeholder="Calle" name="calle">
+            </div>
+            <div class="form-group">
+                <input type="number" id="numero" placeholder="Numero" name="numero">
+            </div>
+            <div class="form-group">
+                <input type="text" id="localidad" placeholder="Localidad" name="localidad">
+            </div>
+            <div class="form-group">
+                <input type="number" id="cant-huespedes" placeholder="Cantidad de huespedes" name="cant-huespedes">
+            </div>
+            <div class="form-group">
+                <input type="number" id="cant-dias" placeholder="Cantidad de dias" name="cant-dias">
+            </div>
+
+            <div class="form-group">
+                <label for="fecha-desde">Fecha desde</label><br>
+                <input type="date" id="fecha-desde" name="fecha-desde">
+            </div>
+
+            
+            <div class="form-group">
+                <label for="fecha-hasta">Fecha hasta</label><br>
+                <input type="date" id="fecha-hasta" name="fecha-hasta">
+            </div>
+
+            <div class="form-buttons">
+                <input id="calcular" type="submit" value="Calcular total a cobrar">
+            </div>
+            <div class="form-buttons">
+                <input id="limpiar-formulario" type="reset" value="Limpiar">
+            </div>
+
+            <div class="form-group">
+                <label for="total-sin-descuentos">Total sin descuentos</label><br>
+                <input type="number" id="total-sin-desc" placeholder="Total sin descuentos" name="total-sin-descuentos">
+            </div>
+            <div class="form-group">
+                <label for="descuento-dias">Descuento 15% por más de 6 días</label><br>
+                <input type="number" id="desc-dias" placeholder="Descuento por mas de 7 dias" name="descuento-dias">
+            </div>
+            <div class="form-group">
+                <label for="descuento-huespedes">Descuento 10% por más de 3 huéspedes</label><br>
+                <input type="number" id="desc-huespedes" placeholder="Descuento mas de 3 huespedes" name="descuento-huespedes">
+            </div>
+            <div class="form-group">
+                <label for="total-estadia">Total por estadía</label><br>
+                <input type="number" id="total" placeholder="Total por estadía" name="total-estadia">
+            </div>
+
+    
+        </form>
+    </main>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>
