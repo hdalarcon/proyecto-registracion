@@ -13,16 +13,7 @@
     <main class="main">
         <h1>Registro de huespedes</h1>
         <form class="formulario" action="#" method="post">
-            <fieldset>
-                <legend>Seleción de cabaña</legend>
-                <select class="form-group" name="cabana" id="cabana">
-                    <option value="" disabled selected>Seleccione una Cabaña</option>
-                    <option value="1">Cabaña 1</option>
-                    <option value="2">Cabaña 2</option>
-                    <option value="3">Cabaña 3</option>
-                    <option value="3">Cabaña 4</option>
-                  </select>
-            </fieldset>
+
             <div class="form-group">
                 <input type="text" id="nombre"  placeholder="Nombre" name="nombre">
             </div>
@@ -39,10 +30,7 @@
                 <input type="email" id="mail" placeholder="Email" name="mail">
             </div>
             <div class="form-group">
-                <input type="text" id="calle" placeholder="Calle" name="calle">
-            </div>
-            <div class="form-group">
-                <input type="number" id="numero" placeholder="Numero" name="numero">
+                <input type="text" id="domicilio" placeholder="Domicilio" name="domicilio">
             </div>
             <div class="form-group">
                 <input type="text" id="localidad" placeholder="Localidad" name="localidad">
@@ -53,7 +41,9 @@
             <div class="form-group">
                 <input type="number" id="cant-dias" placeholder="Cantidad de dias" name="cant-dias">
             </div>
-
+            <div class="form-group">
+                <input type="number" id="numero-cabana" placeholder="Elegir número de Cabaña" name="numero-cabana">
+            </div>
             <div class="form-group">
                 <label for="fecha-desde">Fecha desde</label><br>
                 <input type="date" id="fecha-desde" name="fecha-desde">
