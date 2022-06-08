@@ -5,19 +5,47 @@
 }
 
 body{
-    background: #24303c;
+    background: #24303c !important;
     font-family: 'calibri';
 }
 
 .main h1{
     color: white;
-    margin: 50px auto auto 90px;
-
+    margin: 50px auto auto auto;
+    text-align: center;
 }
 
 .formulario{
+    display: flex;
+    flex-wrap: wrap;
     background: #24303c;
-    margin: 25px auto auto 75px;
+    margin: 25px 10px auto 10px;
+}
+
+.field-datos{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.field-totales{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.field-botones{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+legend{
+    color: white;
+    text-align: center;
+    padding-top: 20px;
 }
 
 .form-group input{
@@ -33,10 +61,10 @@ body{
 .form-group label{
     font-size: 18px;
     color: white;
-    margin: 16px;
+    margin: 20px 0 0 20px;
 }
 
-.form-buttons input{
+.form-buttons a{
     width: 400px;
     font-size: 16px;
     background: #1f53c5;
@@ -44,4 +72,14 @@ body{
     padding: 10px;
     border-radius: 4px;
     margin: 16px;
+}
+
+.div-leyenda{
+    width: 100%;
+    font-size: 50px;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 50px;
 }

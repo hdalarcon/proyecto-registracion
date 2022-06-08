@@ -5,9 +5,16 @@ let precioConDescuentos=0;
 let descPorCantDias=0;
 let descPorCantHuespedes=0;
 let elegirCabana=0;
+let documento=0;
+let telefono=0;
+let cantHuespedes=0;
+let cantDias=0;
+let leyenda="";
+let contenedorDiv="";
 const precioPorPersona=3000;
 const porcentajeDias=0.15;
 const porcentajePersonas=0.10;
+
 
 //ARRAYS
 const listaHuespedes = [];
@@ -41,6 +48,7 @@ listaCabanas.push(new Cabana(3,true))
 listaCabanas.push(new Cabana(4,true))
 listaCabanas.push(new Cabana(5,false))
 listaCabanas.push(new Cabana(6,true))
+
 
 
 //FUNCIONES
@@ -85,35 +93,66 @@ function imprimeTotales(cantHuespedes,cantidadDias){
     alert
     totalSinDescuento = precioPorEstadia(cantHuespedes,cantidadDias,precioPorPersona);
     console.log("El total a cobrar sin descuentos: $"+totalSinDescuento);
+    document.getElementById("total-sin-desc").value= totalSinDescuento;
 
     if(cantHuespedes>3 && cantidadDias>6){
         descPorCantDias= descPorDias(totalSinDescuento,porcentajeDias);
         console.log("Descuento más de 6 días: $"+descPorCantDias);
+        document.getElementById("desc-dias").value = descPorCantDias;
         descPorCantHuespedes=descPorPersonas(totalSinDescuento,porcentajePersonas);
         console.log("Descuento más de 4 huespedes: $"+descPorCantHuespedes);
+        document.getElementById("desc-huespedes").value = descPorCantHuespedes;
     
         totalConDescuento=(totalSinDescuento-descPorCantDias)-descPorCantHuespedes;
         console.log("El total a cobrar con descuentos es: $"+totalConDescuento);
+        document.getElementById("total").value = totalConDescuento;
     
     }else if(cantHuespedes>3 && cantidadDias<=6){
         descPorCantHuespedes=descPorPersonas(totalSinDescuento,porcentajePersonas);
         console.log("Descuento más de 4 huespedes: $"+descPorCantHuespedes);
+        document.getElementById("desc-huespedes").value = descPorCantHuespedes;
+        document.getElementById("desc-dias").value = 0;
     
         totalConDescuento=totalSinDescuento-descPorCantHuespedes;
         console.log("El total a cobrar con descuentos es: $"+totalConDescuento);
+        document.getElementById("total").value = totalConDescuento;
     
     }else if(cantHuespedes<=3 && cantidadDias>6){
     
         descPorCantDias= descPorDias(totalSinDescuento,porcentajeDias);
         console.log("Descuento más de 6 días de hospedaje: $"+descPorCantDias);
+        document.getElementById("desc-dias").value = descPorCantDias;
+        document.getElementById("desc-huespedes").value = 0;
     
         totalConDescuento=totalSinDescuento-descPorCantDias;
         console.log("El total a cobrar con descuentos es: $"+totalConDescuento);
+        document.getElementById("total").value = totalConDescuento;
     
     }else{
         console.log("No se aplican descuentos.");
         console.log("El total a cobrar es: $"+totalSinDescuento);
+        document.getElementById("desc-huespedes").value = 0;
+        document.getElementById("desc-dias").value = 0;
+        document.getElementById("total").value = totalSinDescuento;
     }
+}
+
+function limpiarFormulario(){
+    document.getElementById("nombre").value = "";
+    document.getElementById("apellido").value = "";
+    document.getElementById("documento").value = "";
+    document.getElementById("telefono").value = "";
+    document.getElementById("mail").value = "";
+    document.getElementById("domicilio").value = "";
+    document.getElementById("localidad").value = "";
+    document.getElementById("cant-huespedes").value = "";
+    document.getElementById("cant-dias").value = "";
+    document.getElementById("numero-cabana").value = "";
+    document.getElementById("total-sin-desc").value= "";
+    document.getElementById("desc-huespedes").value = "";
+    document.getElementById("desc-dias").value = "";
+    document.getElementById("total").value = "";
+    contenedorDiv.innerText="";
 }
 
 
@@ -122,14 +161,40 @@ function ingresarHuesped(){
         
         let nombre=prompt("Ingrese el nombre del huesped:");
         let apellido = prompt("Ingrese el apellido:");
-        let documento = parseInt(prompt("Ingrese el documento:"));
-        let telefono = prompt("Ingrese el teléfono:");
+        documento = parseInt(prompt("Ingrese el documento:"));
+        while (isNaN(documento)){
+            documento = parseInt(prompt("Ingrese el documento:"));
+        }
+        telefono = prompt("Ingrese el teléfono:");
+        while (isNaN(telefono)){
+            telefono = parseInt(prompt("Ingrese el teléfono:"));
+        }
         let mail = prompt("Ingrese el mail:");
         let domicilio = prompt("Ingrese el domicilio:");
         let localidad = prompt("Ingrese la localidad:");
-        let cantHuespedes=parseInt(prompt("Ingrese la cantidad de huéspedes:"));
-        let cantDias = parseInt(prompt("Ingrese la cantidad de días de hospedaje:")); 
+        cantHuespedes=parseInt(prompt("Ingrese la cantidad de huéspedes:"));
+        while (isNaN(cantHuespedes)){
+            cantHuespedes = parseInt(prompt("Ingrese la cantidad de huéspedes:"));
+        }
+        cantDias = parseInt(prompt("Ingrese la cantidad de días de hospedaje:")); 
+        while (isNaN(cantDias)){
+            cantDias = parseInt(prompt("Ingrese la cantidad de días de hospedaje:"));
+        }
         elegirCabana=parseInt(prompt("Ingrese el número de cabaña:"));
+        while (isNaN(elegirCabana)){
+            elegirCabana = parseInt(prompt("Ingrese el número de cabaña:"));
+        }
+
+        document.getElementById("nombre").value = nombre.toUpperCase();
+        document.getElementById("apellido").value = apellido.toUpperCase();
+        document.getElementById("documento").value = documento;
+        document.getElementById("telefono").value = telefono;
+        document.getElementById("mail").value = mail.toLowerCase();
+        document.getElementById("domicilio").value = domicilio.toUpperCase();
+        document.getElementById("localidad").value = localidad.toUpperCase();
+        document.getElementById("cant-huespedes").value = cantHuespedes;
+        document.getElementById("cant-dias").value = cantDias;
+        document.getElementById("numero-cabana").value = elegirCabana;
 
         validarCabana(elegirCabana);
 
@@ -149,10 +214,14 @@ function ingresarHuesped(){
 
         let indice = listaCabanas.findIndex((c) => c.idCabana === elegirCabana);
         listaCabanas[indice].libre = false;
-        console.log(listaCabanas[indice].libre);
         alert("Se ha alquilado la cabaña "+listaCabanas[indice].idCabana);
         console.log("Se ha alquilado la cabaña "+listaCabanas[indice].idCabana);
+        leyenda = "Se ha alquilado la cabaña "+listaCabanas[indice].idCabana;
 
+        contenedorDiv.innerText="";
+        contenedorDiv = document.getElementById("leyenda");
+        contenedorDiv.style.color="green";
+        contenedorDiv.append(leyenda)
 
         imprimeTotales(huesped.cantHuespedes,huesped.cantDias);
 
