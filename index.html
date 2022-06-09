@@ -10,47 +10,51 @@
     <title>Registro de huespedes</title>
 </head>
 <body>
+
+    <header class="header">
+        <h1>Registro de huespedes</h1>
+    </header>
     
     <main class="main">
-        <h1>Registro de huespedes</h1>
-        <form class="formulario" action="#" method="post">
+        
+        <form class="formulario">
 
             <fieldset class="field-datos">
-                <legend>Datos del huesped</legend>
+                <legend class="legend">Datos del huesped</legend>
                 <div class="form-group">
-                    <input type="text" id="nombre"  placeholder="Nombre" name="nombre">
+                    <input type="text" id="nombre"  placeholder="Nombre" name="nombre" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="apellido" placeholder="Apellido" name="apellido">
+                    <input type="text" id="apellido" placeholder="Apellido" name="apellido" required>
                 </div>
                 <div class="form-group">
                     <input type="number" id="documento" placeholder="Documento" name="documento">
                 </div>
                 <div class="form-group">
-                    <input type="number" id="telefono" placeholder="Telefono" name="telefono">
+                    <input type="number" id="telefono" placeholder="Telefono" name="telefono" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="mail" placeholder="Email" name="mail">
+                    <input type="email" id="mail" placeholder="Email" name="mail" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="domicilio" placeholder="Domicilio" name="domicilio">
+                    <input type="text" id="domicilio" placeholder="Domicilio" name="domicilio" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="localidad" placeholder="Localidad" name="localidad">
+                    <input type="text" id="localidad" placeholder="Localidad" name="localidad" required>
                 </div>
                 <div class="form-group">
-                    <input type="number" id="cant-huespedes" placeholder="Cantidad de huespedes" name="cant-huespedes">
+                    <input type="number" id="cant-huespedes" placeholder="Cantidad de huespedes" name="cant-huespedes" required>
                 </div>
                 <div class="form-group">
-                    <input type="number" id="cant-dias" placeholder="Cantidad de dias" name="cant-dias">
+                    <input type="number" id="cant-dias" placeholder="Cantidad de dias" name="cant-dias" required>
                 </div>
                 <div class="form-group">
-                    <input type="number" id="numero-cabana" placeholder="Elegir número de Cabaña" name="numero-cabana">
+                    <input type="number" id="numero-cabana" placeholder="Elegir número de Cabaña" name="numero-cabana" required>
                 </div>
             </fieldset>
 
             <fieldset class="field-totales">
-                <legend>Total a cobrar</legend>   
+                <legend class="legend">Total a cobrar</legend>   
                   
                 <div class="form-group">
                     <label for="total-sin-descuentos">Total sin descuentos</label><br>
@@ -73,10 +77,13 @@
 
             <fieldset class="field-botones">
                 <div class="form-buttons">
-                    <a button id="botonIngresar" class="btn btn-secondary" onclick="ingresarHuesped();">Ingresar huesped</a>
+                    <a id="botonCalcular" class="btn btn-secondary">Calcular total estadia</a>
                 </div>
                 <div class="form-buttons">
-                    <a id="botonLimpiar" class="btn btn-secondary" onclick="limpiarFormulario();">Limpiar formulario</a>
+                    <a button id="botonIngresar" class="btn btn-secondary">Ingresar huesped</a>
+                </div>
+                <div class="form-buttons">
+                    <a id="botonLimpiar" class="btn btn-secondary">Limpiar formulario</a>
                 </div>
             </fieldset>
             <div id="leyenda" class="div-leyenda">

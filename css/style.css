@@ -9,9 +9,13 @@ body{
     font-family: 'calibri';
 }
 
-.main h1{
+.header{
+    height: 100px;
+    background-color: #1f53c5;
+}
+.header h1{
     color: white;
-    margin: 50px auto auto auto;
+    padding: 20px;
     text-align: center;
 }
 
@@ -34,6 +38,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding-top: 20px;
 }
 .field-botones{
     width: 100%;
@@ -42,10 +47,11 @@ body{
     justify-content: center;
 }
 
-legend{
+.legend{
     color: white;
+    font-size: 2rem;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 50px;
 }
 
 .form-group input{
