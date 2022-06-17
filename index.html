@@ -11,88 +11,130 @@
 </head>
 <body>
 
-    <header class="header">
-        <h1>Registro de huespedes</h1>
-    </header>
-    
-    <main class="main">
+    <div class="container">
+
+        <div class="row">
+            <header class="header">
+                <h1>Registro de huespedes</h1>
+            </header>
+        </div>
+
+        <div class="row">
+            <main class="main">
+
+                <div class="row">
+                    <h3>Cabañas disponibles:</h3>
+                    <table class="tableCabanas table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cabaña</th>
+                                <th scope="col">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablabodyCabanas">
+                            <!-- Aquí van las cabañas -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <form class="formulario">
         
-        <form class="formulario">
+                        <fieldset class="field-datos">
+                            <legend class="legend">Datos del huesped</legend>
+                            <div class="form-group">
+                                <input type="text" id="nombre"  placeholder="Nombre" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="apellido" placeholder="Apellido" name="apellido" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="documento" placeholder="Documento" name="documento">
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="telefono" placeholder="Telefono" name="telefono" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="mail" placeholder="Email" name="mail" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="domicilio" placeholder="Domicilio" name="domicilio" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="localidad" placeholder="Localidad" name="localidad" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="cant-huespedes" placeholder="Cantidad de huespedes" name="cant-huespedes" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="cant-dias" placeholder="Cantidad de dias" name="cant-dias" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="numero-cabana" placeholder="Elegir número de Cabaña" name="numero-cabana" required>
+                            </div>
+                        </fieldset>
+            
+                        <fieldset class="field-totales">
+                            <legend class="legend">Total a cobrar</legend>   
+                              
+                            <div class="form-group">
+                                <label for="total-sin-descuentos">Total sin descuentos</label><br>
+                                <input type="number" id="total-sin-desc" placeholder="Total sin descuentos" name="total-sin-descuentos">
+                            </div>
+                            <div class="form-group">
+                                <label for="descuento-dias">Descuento 15% por más de 6 días</label><br>
+                                <input type="number" id="desc-dias" placeholder="Descuento por mas de 7 dias" name="descuento-dias">
+                            </div>
+                            <div class="form-group">
+                                <label for="descuento-huespedes">Descuento 10% por más de 3 huéspedes</label><br>
+                                <input type="number" id="desc-huespedes" placeholder="Descuento mas de 3 huespedes" name="descuento-huespedes">
+                            </div>
+                            <div id="div-total" class="form-group">
+                                <label for="total-estadia">Total por estadía</label><br>
+                                <input type="number" id="total" placeholder="Total por estadía" name="total-estadia">
+                            </div>
+            
+                        </fieldset>
+            
+                        <fieldset class="field-botones">
+                            <div class="form-buttons">
+                                <a id="botonCalcular" class="btn btn-secondary">Calcular total estadia</a>
+                            </div>
+                            <div class="form-buttons">
+                                <a button id="botonIngresar" class="btn btn-secondary">Reservar</a>
+                            </div>
+                            <div class="form-buttons">
+                                <a id="botonLimpiar" class="btn btn-secondary">Limpiar formulario</a>
+                            </div>
+                        </fieldset>
+          
+                
+                    </form>
+                </div>
 
-            <fieldset class="field-datos">
-                <legend class="legend">Datos del huesped</legend>
-                <div class="form-group">
-                    <input type="text" id="nombre"  placeholder="Nombre" name="nombre" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="apellido" placeholder="Apellido" name="apellido" required>
-                </div>
-                <div class="form-group">
-                    <input type="number" id="documento" placeholder="Documento" name="documento">
-                </div>
-                <div class="form-group">
-                    <input type="number" id="telefono" placeholder="Telefono" name="telefono" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="mail" placeholder="Email" name="mail" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="domicilio" placeholder="Domicilio" name="domicilio" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="localidad" placeholder="Localidad" name="localidad" required>
-                </div>
-                <div class="form-group">
-                    <input type="number" id="cant-huespedes" placeholder="Cantidad de huespedes" name="cant-huespedes" required>
-                </div>
-                <div class="form-group">
-                    <input type="number" id="cant-dias" placeholder="Cantidad de dias" name="cant-dias" required>
-                </div>
-                <div class="form-group">
-                    <input type="number" id="numero-cabana" placeholder="Elegir número de Cabaña" name="numero-cabana" required>
-                </div>
-            </fieldset>
+                <div class="row">
+                    <h3>Reservas:</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cabaña reservada</th>
+                                <th scope="col">Nombre y apellido</th>
+                                <th scope="col">Documento</th>
+                                <th scope="col">Cantidad de huespedes</th>
+                                <th scope="col">Cantidad de días</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablabody">
+                            <!-- Aqui los datos del huesped -->
+                        </tbody>
+                    </table>
 
-            <fieldset class="field-totales">
-                <legend class="legend">Total a cobrar</legend>   
-                  
-                <div class="form-group">
-                    <label for="total-sin-descuentos">Total sin descuentos</label><br>
-                    <input type="number" id="total-sin-desc" placeholder="Total sin descuentos" name="total-sin-descuentos">
-                </div>
-                <div class="form-group">
-                    <label for="descuento-dias">Descuento 15% por más de 6 días</label><br>
-                    <input type="number" id="desc-dias" placeholder="Descuento por mas de 7 dias" name="descuento-dias">
-                </div>
-                <div class="form-group">
-                    <label for="descuento-huespedes">Descuento 10% por más de 3 huéspedes</label><br>
-                    <input type="number" id="desc-huespedes" placeholder="Descuento mas de 3 huespedes" name="descuento-huespedes">
-                </div>
-                <div id="div-total" class="form-group">
-                    <label for="total-estadia">Total por estadía</label><br>
-                    <input type="number" id="total" placeholder="Total por estadía" name="total-estadia">
                 </div>
 
-            </fieldset>
-
-            <fieldset class="field-botones">
-                <div class="form-buttons">
-                    <a id="botonCalcular" class="btn btn-secondary">Calcular total estadia</a>
-                </div>
-                <div class="form-buttons">
-                    <a button id="botonIngresar" class="btn btn-secondary">Ingresar huesped</a>
-                </div>
-                <div class="form-buttons">
-                    <a id="botonLimpiar" class="btn btn-secondary">Limpiar formulario</a>
-                </div>
-            </fieldset>
-            <div id="leyenda" class="div-leyenda">
-                <!--Leyenda de cabaña alquilada-->
-            </div>
-
-    
-        </form>
-    </main>
+            </main>
+        </div>
+        
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="./js/main.js"></script>

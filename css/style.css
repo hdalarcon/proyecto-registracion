@@ -19,6 +19,13 @@ body{
     text-align: center;
 }
 
+.main h3{
+    color: white;
+    text-align: center;
+    padding: 30PX 10PX 10PX 10px;
+}
+
+
 .formulario{
     display: flex;
     flex-wrap: wrap;
@@ -88,4 +95,19 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     padding: 50px;
+}
+
+tbody, td, tfoot, th, thead, tr{
+    color: white;
+    text-align: center;
+}
+
+.table{
+    color: white !important;
+    padding-bottom: 50px;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>*{
+    color: white !important;
+    text-align: center;
 }

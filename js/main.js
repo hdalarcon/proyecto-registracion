@@ -28,7 +28,7 @@ const listaCabanas = [];
 
 //CLASES
 class Huesped {
-    constructor(nombre,apellido,documento,telefono,mail,domicilio,localidad,totHuespedes,totDias){
+    constructor(nombre,apellido,documento,telefono,mail,domicilio,localidad,totHuespedes,totDias,cabanaReservada){
         this.nombre=nombre;
         this.apellido=apellido;
         this.documento=documento;
@@ -38,6 +38,7 @@ class Huesped {
         this.localidad=localidad;
         this.cantHuespedes=totHuespedes;
         this.cantDias=totDias
+        this.cabanaReservada=cabanaReservada;
     } 
 }
 
@@ -48,15 +49,47 @@ class Cabana {
     }
 }
 
-listaCabanas.push(new Cabana(1,true))
-listaCabanas.push(new Cabana(2,true))
-listaCabanas.push(new Cabana(3,true))
-listaCabanas.push(new Cabana(4,true))
-listaCabanas.push(new Cabana(5,true))
-listaCabanas.push(new Cabana(6,true))
+//llena el array de cabañas
+listaCabanas.push(new Cabana(1,"libre"))
+listaCabanas.push(new Cabana(2,"libre"))
+listaCabanas.push(new Cabana(3,"libre"))
+listaCabanas.push(new Cabana(4,"libre"))
+listaCabanas.push(new Cabana(5,"libre"))
+listaCabanas.push(new Cabana(6,"libre"))
+
+//Recupera los datos de las reservas del localStorage
+if(localStorage.getItem("listaHuespedes")!=null){
+    const huespedStorage=JSON.parse(localStorage.getItem("listaHuespedes"));
+    for (const hRecuperado of huespedStorage) {
+        listaHuespedes.push(new Huesped(hRecuperado.nombre,hRecuperado.apellido,hRecuperado.documento,hRecuperado.telefono,hRecuperado.mail,hRecuperado.domicilio,hRecuperado.localidad,
+            hRecuperado.cantHuespedes,hRecuperado.cantDias,hRecuperado.cabanaReservada));
+
+            //Verifica si las cabañas ya se encuentran reservadas
+            for (const cabana of listaCabanas) {
+                if(cabana.idCabana==hRecuperado.cabanaReservada){
+                    cabana.libre="ocupada";
+                }
+            }
+    }
+     
+    //Carga los datos de las reservas en la tabla
+     for (const huesped of listaHuespedes) {
+         document.getElementById("tablabody").innerHTML+=`
+         <tr>
+             <td>${huesped.cabanaReservada}</td>
+             <td>${huesped.nombre.toUpperCase()+' '+huesped.apellido.toUpperCase()}</td>
+             <td>${huesped.documento}</td>
+             <td>${huesped.cantHuespedes}</td>
+             <td>${huesped.cantDias}</td>
+         </tr>
+          `;
+     }
 
 
+}
 
+
+//Eventos de botones
 let botonIngresar = document.getElementById("botonIngresar");
 botonIngresar.addEventListener("click",ingresarHuesped);
 
@@ -81,10 +114,14 @@ function descPorPersonas(total,porcentaje){
 }
 
 function muestraCabanasLibres(){
-    console.log("Cantidad de cabañas: "+listaCabanas.length);
-    console.log("Cabañas disponibles: ");
+
     for (const cabana of cabanasLibres) {
-        console.log("Cabaña "+cabana.idCabana);
+        document.getElementById("tablabodyCabanas").innerHTML+=`
+            <tr>
+                <td>${cabana.idCabana}</td>
+                <td>${cabana.libre.toUpperCase()}</td>
+            </tr>
+        `;
     }
 }
 
@@ -148,16 +185,17 @@ function limpiarFormulario(){
     contenedorDiv.innerText="";
 }
 
+//Valida si la cabaña se encuentra libre o existe
 function validarCabana(numCabana){
 
     let cabanaEncontrada=listaCabanas.find((c) => c.idCabana === numCabana);
 
     if(cabanaEncontrada){
-        if(cabanaEncontrada.libre==true){
-            return true;
+        if(cabanaEncontrada.libre=="libre"){
+            ocupada= true;
         }else{
                 alert("La cabaña ingresada se encuentra ocupada.");
-                ocupada=true;
+                ocupada=false;
              }    
     }else{
         alert("La cabaña ingresada no existe.");
@@ -166,8 +204,23 @@ function validarCabana(numCabana){
     return ocupada;
 }
 
+function validarFormulario(){
+    if((nombre==null)||(nombre=='')){
+        alert("Debe ingresar un nombre.");
+    }else if((apellido==null)||(apellido=='')){
+        alert("Debe ingresar un apellido.");
+    }else if((mail==null)||(mail=='')){
+        alert("Debe ingresar un mail válido.");
+    }else if((domicilio==null)||(domicilio=='')){
+        alert("Debe ingresar un domicilio válido.");
+    }else if((localidad==null)||(localidad=='')){
+        alert("Debe ingresar una localidad válida.");
+    }
+}
+
 function ingresarHuesped(){
-    ocupada=false;    
+
+    ocupada= true;    
     
     nombre=document.getElementById("nombre").value; 
     apellido = document.getElementById("apellido").value; 
@@ -180,37 +233,36 @@ function ingresarHuesped(){
     cantDias = parseInt(document.getElementById("cant-dias").value); 
     elegirCabana= parseInt(document.getElementById("numero-cabana").value) ; 
 
+    validarFormulario();
+
     validarCabana(elegirCabana);
 
 
-    if(ocupada){
+    if(ocupada==false){
+        //Si la cabaña seleccionada se encuentra ocupada pide ingresar otra.
         alert("Debe ingresar otra cabaña.");
     }else{
-        
-        let huesped = new Huesped(nombre,apellido,documento,telefono,mail,domicilio,localidad,cantHuespedes,cantDias);
+        //Si la cabaña se encuentra desocupada realiza la reserva.
+        let huesped = new Huesped(nombre,apellido,documento,telefono,mail,domicilio,localidad,cantHuespedes,cantDias,elegirCabana);
 
         listaHuespedes.push(huesped);
     
-        console.log("Datos del huesped:");
-        console.log("Nombre y apellido: "+huesped.nombre+" "+huesped.apellido);
-        console.log("Documento: "+huesped.documento);
-        console.log("Teléfono: "+huesped.telefono);
-        console.log("Mail: "+huesped.mail);
-        console.log("Domicilio: "+huesped.domicilio);
-        console.log("Localidad: "+huesped.localidad);
-        console.log("Cantidad de huéspedes: "+huesped.cantHuespedes);
-        console.log("Cantidad de días: "+huesped.cantDias);
-    
-    
         let indice = listaCabanas.findIndex((c) => c.idCabana === elegirCabana);
-        listaCabanas[indice].libre = false;
-        alert("Se ha alquilado la cabaña "+listaCabanas[indice].idCabana);
-        leyenda = "Se ha alquilado la cabaña "+listaCabanas[indice].idCabana;
-    
-        contenedorDiv.innerText="";
-        contenedorDiv = document.getElementById("leyenda");
-        contenedorDiv.style.color="green";
-        contenedorDiv.append(leyenda)
+        listaCabanas[indice].libre = "ocupada";
+        alert("Se ha reservado la cabaña "+listaCabanas[indice].idCabana);
+
+        document.getElementById("tablabody").innerHTML+=`
+            <tr>
+                <td>${huesped.cabanaReservada}</td>
+                <td>${huesped.nombre.toUpperCase()+' '+huesped.apellido.toUpperCase()}</td>
+                <td>${huesped.documento}</td>
+                <td>${huesped.cantHuespedes}</td>
+                <td>${huesped.cantDias}</td>
+            </tr>
+        `;
+        
+        //Carga los datos de la reserva en el localStorage
+        localStorage.setItem("listaHuespedes",JSON.stringify(listaHuespedes));
     
         imprimeTotales(huesped.cantHuespedes,huesped.cantDias);
     }
@@ -218,7 +270,7 @@ function ingresarHuesped(){
 }
 
 
-const cabanasLibres=listaCabanas.filter((cl) =>cl.libre==true);
+const cabanasLibres=listaCabanas.filter((cl) =>cl.libre=="libre");
 
 muestraCabanasLibres();
 

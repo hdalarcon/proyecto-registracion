@@ -1,3 +1,7 @@
 {
-    "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+  "workbench.colorTheme": "Visual Studio Dark - C++",
+  "workbench.preferredHighContrastColorTheme": "Default Dark+",
+  "workbench.preferredDarkColorTheme": "Default Dark+",
+  "workbench.iconTheme": "material-icon-theme"
 }
