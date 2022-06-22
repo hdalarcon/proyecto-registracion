@@ -1,9 +1,5 @@
 //VARIABLES GLOBALES
 let totalSinDescuento=0;
-let totalConDescuento=0;
-let precioConDescuentos=0;
-let descPorCantDias=0;
-let descPorCantHuespedes=0;
 let nombre=document.getElementById("nombre"); 
 let apellido = document.getElementById("apellido"); 
 let documento = document.getElementById("documento"); 
@@ -14,7 +10,6 @@ let localidad = document.getElementById("localidad");
 let cantHuespedes= document.getElementById("cant-huespedes"); 
 let cantDias = document.getElementById("cant-dias"); 
 let elegirCabana= document.getElementById("numero-cabana"); 
-let leyenda="";
 let contenedorDiv="";
 let ocupada;
 const precioPorPersona=3000;
@@ -45,7 +40,7 @@ class Huesped {
 class Cabana {
     constructor(idCabana,libre){
         this.idCabana=idCabana;
-        this.libre=libre;
+        this.estado=libre;
     }
 }
 
@@ -66,8 +61,10 @@ if(localStorage.getItem("listaHuespedes")!=null){
 
             //Verifica si las cabañas ya se encuentran reservadas
             for (const cabana of listaCabanas) {
-                if(cabana.idCabana==hRecuperado.cabanaReservada){
-                    cabana.libre="ocupada";
+
+                const {idCabana} = cabana;
+                if(idCabana==hRecuperado.cabanaReservada){
+                    cabana.estado="ocupada";
                 }
             }
     }
@@ -87,7 +84,6 @@ if(localStorage.getItem("listaHuespedes")!=null){
 
 
 }
-
 
 //Eventos de botones
 let botonIngresar = document.getElementById("botonIngresar");
@@ -113,13 +109,17 @@ function descPorPersonas(total,porcentaje){
     return total*porcentaje;
 }
 
+function calcularTotalEstadia(...numeros){
+    return numeros.reduce((acc,n)=>acc-n,totalSinDescuento);
+}
+
 function muestraCabanasLibres(){
 
     for (const cabana of cabanasLibres) {
         document.getElementById("tablabodyCabanas").innerHTML+=`
             <tr>
                 <td>${cabana.idCabana}</td>
-                <td>${cabana.libre.toUpperCase()}</td>
+                <td>${cabana.estado.toUpperCase()}</td>
             </tr>
         `;
     }
@@ -134,37 +134,12 @@ function imprimeTotales(){
     totalSinDescuento = precioPorEstadia(cantHuespedes,cantDias,precioPorPersona);
     document.getElementById("total-sin-desc").value= totalSinDescuento;
 
-    if(cantHuespedes>3 && cantDias>6){
-        descPorCantDias= descPorDias(totalSinDescuento,porcentajeDias);
-        document.getElementById("desc-dias").value = descPorCantDias;
-        descPorCantHuespedes=descPorPersonas(totalSinDescuento,porcentajePersonas);
-        document.getElementById("desc-huespedes").value = descPorCantHuespedes;
-    
-        totalConDescuento=(totalSinDescuento-descPorCantDias)-descPorCantHuespedes;
-        document.getElementById("total").value = totalConDescuento;
-    
-    }else if(cantHuespedes>3 && cantDias<=6){
-        descPorCantHuespedes=descPorPersonas(totalSinDescuento,porcentajePersonas);
-        document.getElementById("desc-huespedes").value = descPorCantHuespedes;
-        document.getElementById("desc-dias").value = 0;
-    
-        totalConDescuento=totalSinDescuento-descPorCantHuespedes;
-        document.getElementById("total").value = totalConDescuento;
-    
-    }else if(cantHuespedes<=3 && cantDias>6){
-    
-        descPorCantDias= descPorDias(totalSinDescuento,porcentajeDias);
-        document.getElementById("desc-dias").value = descPorCantDias;
-        document.getElementById("desc-huespedes").value = 0;
-    
-        totalConDescuento=totalSinDescuento-descPorCantDias;
-        document.getElementById("total").value = totalConDescuento;
-    
-    }else{
-        document.getElementById("desc-huespedes").value = 0;
-        document.getElementById("desc-dias").value = 0;
-        document.getElementById("total").value = totalSinDescuento;
-    }
+    (cantHuespedes>3) ? document.getElementById("desc-huespedes").value = descPorPersonas(totalSinDescuento,porcentajePersonas) : document.getElementById("desc-huespedes").value = 0 ;
+
+    (cantDias>6) ? document.getElementById("desc-dias").value =descPorDias(totalSinDescuento,porcentajeDias) : document.getElementById("desc-dias").value =0; 
+
+    document.getElementById("total").value = calcularTotalEstadia (document.getElementById("desc-dias").value, document.getElementById("desc-huespedes").value) ;
+
 }
 
 function limpiarFormulario(){
@@ -190,32 +165,19 @@ function validarCabana(numCabana){
 
     let cabanaEncontrada=listaCabanas.find((c) => c.idCabana === numCabana);
 
-    if(cabanaEncontrada){
-        if(cabanaEncontrada.libre=="libre"){
-            ocupada= true;
-        }else{
-                alert("La cabaña ingresada se encuentra ocupada.");
-                ocupada=false;
-             }    
-    }else{
-        alert("La cabaña ingresada no existe.");
-        ocupada=false;
-    }    
+    cabanaEncontrada ? (cabanaEncontrada.estado=="libre" ? ocupada= true :  (ocupada=false, alert("La cabaña ingresada se encuentra ocupada.")) ) : (ocupada=false,alert("La cabaña ingresada no existe."));
+
     return ocupada;
 }
 
 function validarFormulario(){
-    if((nombre==null)||(nombre=='')){
-        alert("Debe ingresar un nombre.");
-    }else if((apellido==null)||(apellido=='')){
-        alert("Debe ingresar un apellido.");
-    }else if((mail==null)||(mail=='')){
-        alert("Debe ingresar un mail válido.");
-    }else if((domicilio==null)||(domicilio=='')){
-        alert("Debe ingresar un domicilio válido.");
-    }else if((localidad==null)||(localidad=='')){
-        alert("Debe ingresar una localidad válida.");
-    }
+
+    ((nombre==null)||(nombre==''))  &&  alert("Debe ingresar un nombre.");
+    ((apellido==null)||(apellido=='')) && alert("Debe ingresar un apellido.");
+    ((mail==null)||(mail=='')) && alert("Debe ingresar un mail válido.");
+    ((domicilio==null)||(domicilio=='')) && alert("Debe ingresar un domicilio válido.");
+    ((localidad==null)||(localidad=='')) && alert("Debe ingresar una localidad válida.");
+    
 }
 
 function ingresarHuesped(){
@@ -248,8 +210,9 @@ function ingresarHuesped(){
         listaHuespedes.push(huesped);
     
         let indice = listaCabanas.findIndex((c) => c.idCabana === elegirCabana);
-        listaCabanas[indice].libre = "ocupada";
+        listaCabanas[indice].estado = "ocupada";
         alert("Se ha reservado la cabaña "+listaCabanas[indice].idCabana);
+      
 
         document.getElementById("tablabody").innerHTML+=`
             <tr>
@@ -270,8 +233,9 @@ function ingresarHuesped(){
 }
 
 
-const cabanasLibres=listaCabanas.filter((cl) =>cl.libre=="libre");
+const cabanasLibres=listaCabanas.filter((cl) =>cl.estado=="libre");
 
 muestraCabanasLibres();
+
 
 
