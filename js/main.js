@@ -1,6 +1,6 @@
 //VARIABLES GLOBALES
 let totalSinDescuento=0;
-let nombre=document.getElementById("nombre"); 
+let nombre=document.getElementById("nombre").value; 
 let apellido = document.getElementById("apellido"); 
 let documento = document.getElementById("documento"); 
 let telefono = document.getElementById("telefono"); 
@@ -160,23 +160,54 @@ function limpiarFormulario(){
     contenedorDiv.innerText="";
 }
 
+
 //Valida si la cabaña se encuentra libre o existe
 function validarCabana(numCabana){
 
     let cabanaEncontrada=listaCabanas.find((c) => c.idCabana === numCabana);
 
-    cabanaEncontrada ? (cabanaEncontrada.estado=="libre" ? ocupada= true :  (ocupada=false, alert("La cabaña ingresada se encuentra ocupada.")) ) : (ocupada=false,alert("La cabaña ingresada no existe."));
+    cabanaEncontrada ? (cabanaEncontrada.estado=="libre" ? ocupada= true :  ocupada=false ) : ocupada=false;
 
     return ocupada;
 }
 
 function validarFormulario(){
+ 
+    if((nombre==null)||(nombre=='')){
+        Swal.fire({
+            text: "Debe ingresar un nombre.",
+            icon: "warning"
+        });
 
-    ((nombre==null)||(nombre==''))  &&  alert("Debe ingresar un nombre.");
-    ((apellido==null)||(apellido=='')) && alert("Debe ingresar un apellido.");
-    ((mail==null)||(mail=='')) && alert("Debe ingresar un mail válido.");
-    ((domicilio==null)||(domicilio=='')) && alert("Debe ingresar un domicilio válido.");
-    ((localidad==null)||(localidad=='')) && alert("Debe ingresar una localidad válida.");
+    }else if((apellido==null)||(apellido=='')){
+        Swal.fire({
+            text: "Debe ingresar un apellido.",
+            icon: "warning"
+        });
+
+    }else if((mail==null)||(mail=='')){
+        Swal.fire({
+            text: "Debe ingresar un mail.",
+            icon: "warning"
+        });
+
+    }else if((domicilio==null)||(domicilio=='')){
+        Swal.fire({
+            text: "Debe ingresar un domicilio válido.",
+            icon: "warning"
+        });
+
+    }else if((localidad==null)||(localidad=='')){
+        Swal.fire({
+            text: "Debe ingresar una localidad válida.",
+            icon: "warning"
+        });
+    }else{
+        validarCabana(elegirCabana);
+    }
+   
+
+    
     
 }
 
@@ -197,12 +228,13 @@ function ingresarHuesped(){
 
     validarFormulario();
 
-    validarCabana(elegirCabana);
-
 
     if(ocupada==false){
         //Si la cabaña seleccionada se encuentra ocupada pide ingresar otra.
-        alert("Debe ingresar otra cabaña.");
+        Swal.fire({
+            text: "Debe seleccionar otra cabaña.",
+            icon: "warning"
+        });
     }else{
         //Si la cabaña se encuentra desocupada realiza la reserva.
         let huesped = new Huesped(nombre,apellido,documento,telefono,mail,domicilio,localidad,cantHuespedes,cantDias,elegirCabana);
@@ -211,8 +243,11 @@ function ingresarHuesped(){
     
         let indice = listaCabanas.findIndex((c) => c.idCabana === elegirCabana);
         listaCabanas[indice].estado = "ocupada";
-        alert("Se ha reservado la cabaña "+listaCabanas[indice].idCabana);
-      
+        //alert("Se ha reservado la cabaña "+listaCabanas[indice].idCabana);
+        Swal.fire({
+            text:"Se ha reservado la cabaña "+listaCabanas[indice].idCabana,
+            icon:"success"
+        });
 
         document.getElementById("tablabody").innerHTML+=`
             <tr>
