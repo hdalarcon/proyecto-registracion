@@ -15,11 +15,20 @@ let ocupada;
 const precioPorPersona=3000;
 const porcentajeDias=0.15;
 const porcentajePersonas=0.10;
-
+let listaTablaCabanas
 
 //ARRAYS
 const listaHuespedes = [];
 const listaCabanas = [];
+let listaCabanasServicios = [];
+
+
+//Evento-Cuando la ventana está cargada
+window.onload=()=>{
+
+    listaTablaCabanas=document.getElementById("tablabodyCabanasServicios");
+    obtenerCabanasJson();
+};
 
 //CLASES
 class Huesped {
@@ -43,6 +52,8 @@ class Cabana {
         this.estado=libre;
     }
 }
+
+
 
 //llena el array de cabañas
 listaCabanas.push(new Cabana(1,"libre"))
@@ -125,7 +136,21 @@ function muestraCabanasLibres(){
     }
 }
 
-
+//funcion para cargar el estado de las cabañas
+function cargarCabanas(){
+    console.log(listaCabanasServicios);
+    for(const cab of listaCabanasServicios){
+        null;
+        listaTablaCabanas.innerHTML+=`
+        <tr>
+            <td>${cab.idCabana}</td>
+            <td>${cab.habitaciones}</td>
+            <td>${cab.cocina}</td>
+            <td>${cab.cochera}</td>
+        </tr>
+        `; 
+    }
+}
 
 function imprimeTotales(){
     cantHuespedes =parseInt(document.getElementById("cant-huespedes").value);
@@ -267,10 +292,18 @@ function ingresarHuesped(){
     
 }
 
+//llena el array de cabañas con el JSON cabanas.json
+async function obtenerCabanasJson(){
+    const URLJSON= "/cabanas.json" 
+    const respuesta=await  fetch(URLJSON)
+    const data=await respuesta.json()
+    listaCabanasServicios = data;
+    cargarCabanas();
+}
 
 const cabanasLibres=listaCabanas.filter((cl) =>cl.estado=="libre");
 
-muestraCabanasLibres();
 
+muestraCabanasLibres();
 
 

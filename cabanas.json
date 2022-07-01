@@ -1,0 +1,38 @@
+[
+    {
+        "idCabana": 1,
+        "habitaciones":1,
+        "cocina":"si",
+        "cochera":"si"
+    },
+    {
+        "idCabana": 2,
+        "habitaciones":1,
+        "cocina":"si",
+        "cochera":"si"
+    },
+    {
+        "idCabana": 3,
+        "habitaciones":1,
+        "cocina":"si",
+        "cochera":"si"
+    },
+    {
+        "idCabana": 4,
+        "habitaciones":2,
+        "cocina":"si",
+        "cochera":"si"
+    },
+    {
+        "idCabana": 5,
+        "habitaciones":2,
+        "cocina":"si",
+        "cochera":"si"
+    },
+    {
+        "idCabana": 6,
+        "habitaciones":3,
+        "cocina":"si",
+        "cochera":"si"
+    }
+]
