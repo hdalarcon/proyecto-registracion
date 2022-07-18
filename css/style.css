@@ -5,7 +5,7 @@
 }
 
 body{
-    background: #24303c !important;
+    background: #24303c;
     font-family: 'calibri';
 }
 
@@ -15,16 +15,34 @@ body{
 }
 .header h1{
     color: white;
-    padding: 20px;
+    padding-top: 20px; 
     text-align: center;
 }
 
 .main h3{
     color: white;
     text-align: center;
-    padding: 30PX 10PX 10PX 10px;
+}
+.main h4{
+    color: white;
+    text-align: center;
+}
+.card{
+    background-color: #24303c;
+    margin: 5px;
+}
+.card-header{
+    text-align: center;
+    background-color: #1f53c5;   
+}
+.card-body{
+    text-align: center;
 }
 
+.totales{
+    display: flex;
+    justify-content: space-evenly;
+}
 
 .formulario{
     display: flex;
@@ -33,42 +51,24 @@ body{
     margin: 25px 10px auto 10px;
 }
 
-.field-datos{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.field-totales{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-top: 20px;
-}
-.field-botones{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.legend{
+.form-select input{
+    font-size: 18px;
     color: white;
-    font-size: 2rem;
-    text-align: center;
-    padding-top: 50px;
+    background: #24303c;
+    width: 95%;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 5px;
+    border: 1px solid #1f53c5 ;
 }
-
 .form-group input{
     font-size: 18px;
     color: white;
     background: #24303c;
-    width: 400px;
+    width: 95%;
     padding: 10px;
     border-radius: 4px;
-    margin: 16px;
+    margin: 5px;
     border: 1px solid #1f53c5 ;
 }
 .form-group label{
@@ -77,37 +77,37 @@ body{
     margin: 20px 0 0 20px;
 }
 
+.form-group select{
+    font-size: 18px;
+    color: white;
+    background: #24303c;
+    width: 95%;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px;
+    border: 1px solid #1f53c5 ;
+}
+
 .form-buttons a{
-    width: 400px;
+    width: 95%;
     font-size: 16px;
     background: #1f53c5;
     color: white;
     padding: 10px;
     border-radius: 4px;
-    margin: 16px;
+    margin: 10px;
 }
-
-.div-leyenda{
-    width: 100%;
-    font-size: 50px;
+.form-buttons button{
+    width: 95%;
+    font-size: 16px;
+    background: #1f53c5;
     color: white;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 50px;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px;
 }
 
 tbody, td, tfoot, th, thead, tr{
     color: white;
-    text-align: center;
-}
-
-.table{
-    color: white !important;
-    padding-bottom: 50px;
-}
-
-.table-striped>tbody>tr:nth-of-type(odd)>*{
-    color: white !important;
     text-align: center;
 }
